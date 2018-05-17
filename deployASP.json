@@ -1,0 +1,86 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the App Service Environment"
+      }
+    },
+    "location": {
+      "type": "string",
+      "allowedValues": [
+        "UK South"
+      ],
+      "metadata": {
+        "description": "Location of the App Service Environment"
+      }
+    },
+    "env": {
+      "type": "string",
+      "metadata": {
+        "description": "Environment Specific tag"
+      }
+    },
+    "capacity": {
+      "type": "string",
+      "defaultValue": "2"
+    },
+    "asp_name": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "aspname": "[concat(parameters('asp_name'), '-asp')]",
+    "aspResourceGroup": "[concat('mgmt-asp-', parameters('env'))]",
+    "serverFarmName": "[if(contains(parameters('asp_name'), 'null'), parameters('name'), variables('aspname'))]",
+    "serverFarmRG": "[if(contains(parameters('asp_name'), 'null'),  parameters('name'), variables('aspResourceGroup'))]",
+    "serverFarmId": "[if(contains(parameters('asp_name'), 'null'), resourceId('Microsoft.Web/serverfarms', variables('serverFarmName')), resourceId(variables('aspResourceGroup'), 'Microsoft.Web/serverfarms', variables('serverFarmName')))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-05-10",
+      "name": "[concat('aspDeploy-', variables('serverFarmName'))]",
+      "type": "Microsoft.Resources/deployments",
+      "resourceGroup": "[variables('serverFarmRG')]",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
+            {
+              "name": "[variables('serverFarmName')]",
+              "type": "Microsoft.Web/serverfarms",
+              "location": "[parameters('location')]",
+              "apiVersion": "2016-09-01",
+              "tags": {
+                "displayName": "Application Service Plan",
+                "environment": "[parameters('env')]"
+              },
+              "properties": {
+                "name": "[variables('serverFarmName')]",
+                "hostingEnvironment": "[concat('core-compute-', parameters('env'))]",
+                "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', concat('core-compute-', parameters('env')))]"
+              },
+              "sku": {
+                "name": "I2",
+                "tier": "Isolated",
+                "size": "I2",
+                "family": "I",
+                "capacity": "[parameters('capacity')]"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "aspResourceID": {
+      "value": "[variables('serverFarmId')]",
+      "type": "string"
+    }
+  }
+}

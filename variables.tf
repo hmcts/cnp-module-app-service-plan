@@ -52,6 +52,12 @@ variable "asp_properties_per_site_scaling" {
   default     = false
 }
 
+variable "ase_name_list" {
+  type        = "list"
+  description = "A list of ASEs to which this ASP should be created"
+  default     = "core-compute-${var.env}"
+}
+
 //TAG SPECIFIC VARIABLES
 variable "env" {
   type        = "string"
@@ -75,4 +81,15 @@ variable "destroy_me" {
   type        = "string"
   description = "Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing"
   default     = "No"
+}
+
+variable "tags_list" {
+  type        = "list"
+  description = "List of tags to be applied to each resource"
+
+  default = [
+    "team_name    = ${var.team_name}",
+    "team_contact = ${var.team_contact}",
+    "destroy_me   = ${var.destroy_me}",
+  ]
 }

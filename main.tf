@@ -1,24 +1,21 @@
-resource "azurerm_app_service_plan" "app_service_plan" {
-  name                = "${var.product}-shared-ASP"
-  location            = "${var.location}"
-  resource_group_name = "${var.resource_group_name}"
+data "template_file" "deployASP" {
+  template = "${file("${path.module}/deployASP.json")}"
+}
 
-  sku {
-    tier     = "${var.asp_sku_tier}"
-    size     = "${var.asp_sku_size}"
-    capacity = "${var.asp_sku_capacity}"
-  }
+# Deploy the App Service Plan
+resource "azurerm_template_deployment" "app_service_plan" {
+  template_body       = "${data.template_file.deployASP.rendered}"
+  name                = "${var.product}-${var.env}-asp-webapp"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+  deployment_mode     = "Incremental"
 
-  properties {
-    app_service_environment_id = "${var.asp_properties_app_service_environment_id}"
-    maximum_number_of_workers  = "${var.asp_properties_maximum_number_of_workers}"
-    per_site_scaling           = "${var.asp_properties_per_site_scaling}"
-  }
-
-  tags {
-    "Deployment Environment" = "${var.env}"
-    "Team Name"              = "${var.team_name}"
-    "Team Contact"           = "${var.team_contact}"
-    "Destroy Me"             = "${var.destroy_me}"
+  parameters = {
+    name     = "${var.product}-${var.env}"
+    location = "${var.location}"
+    env      = "${var.env}"
+    capacity = "${var.capacity}"
+    asp_name = "${var.asp_name}-${var.env}"
+    ase_name = "${var.ase_name_list}"
+    tags     = "${var.tags_list}"
   }
 }
