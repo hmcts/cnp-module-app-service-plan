@@ -65,7 +65,6 @@ variable "asp_properties_per_site_scaling" {
 variable "ase_name_list" {
   type        = "list"
   description = "A list of ASEs to which this ASP should be created"
-  default     = ["core-compute-${var.env}"]
 }
 
 //TAG SPECIFIC VARIABLES
@@ -96,10 +95,4 @@ variable "destroy_me" {
 variable "tag_list" {
   type        = "list"
   description = "List of tags to be applied to each resource"
-
-  default = [
-    "team_name    = ${var.team_name}",
-    "team_contact = ${var.team_contact}",
-    "destroy_me   = ${var.destroy_me}",
-  ]
 }
