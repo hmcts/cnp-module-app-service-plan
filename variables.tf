@@ -15,6 +15,10 @@ variable "resource_group_name" {
   description = "This is the prefix your resource group name will have for your shared infrastructure"
 }
 
+variable "resourcegroupname" {
+  type = "string"
+}
+
 //APP SERVICE PLAN SPECIFIC VARIABLES
 variable "asp_sku_tier" {
   type        = "string"
