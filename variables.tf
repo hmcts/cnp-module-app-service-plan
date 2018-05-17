@@ -59,8 +59,8 @@ variable "asp_properties_per_site_scaling" {
 }
 
 variable "ase_name" {
-  type        = "list"
-  description = "A list of ASEs to which this ASP should be created"
+  type        = "string"
+  description = "The name to which this ASP should be created"
 }
 
 //TAG SPECIFIC VARIABLES
