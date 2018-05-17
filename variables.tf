@@ -93,7 +93,7 @@ variable "destroy_me" {
   default     = "No"
 }
 
-variable "tags_list" {
+variable "tag_list" {
   type        = "list"
   description = "List of tags to be applied to each resource"
 

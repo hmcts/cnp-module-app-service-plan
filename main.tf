@@ -6,7 +6,7 @@ data "template_file" "deployASP" {
 resource "azurerm_template_deployment" "app_service_plan" {
   template_body       = "${data.template_file.deployASP.rendered}"
   name                = "${var.product}-${var.env}-asp-webapp"
-  resource_group_name = "${var.resourcegroupname}"
+  resource_group_name = "${var.resource_group_name}"
   deployment_mode     = "Incremental"
 
   parameters = {
@@ -14,8 +14,8 @@ resource "azurerm_template_deployment" "app_service_plan" {
     location     = "${var.location}"
     env          = "${var.env}"
     asp_capacity = "${var.asp_capacity}"
-    asp_name     = "${var.asp_name}-${var.env}"
+    asp_name     = "${var.asp_name}"
     ase_name     = "${var.ase_name_list}"
-    tags         = "${var.tags_list}"
+    tag_list     = "${var.tag_list}"
   }
 }
