@@ -89,6 +89,6 @@ variable "destroy_me" {
 }
 
 variable "tag_list" {
-  type        = "list"
+  type        = "map"
   description = "List of tags to be applied to each resource"
 }
