@@ -26,13 +26,19 @@ variable "asp_sku_tier" {
   default     = ""
 }
 
+variable "asp_name" {
+  type        = "string"
+  description = "(Required) Specifies the plan's instance size."
+  default     = ""
+}
+
 variable "asp_sku_size" {
   type        = "string"
   description = "(Required) Specifies the plan's instance size."
   default     = ""
 }
 
-variable "asp_sku_capacity" {
+variable "asp_capacity" {
   type        = "string"
   description = "(Optional) Specifies the number of workers associated with this App Service Plan."
   default     = 1

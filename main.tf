@@ -10,12 +10,12 @@ resource "azurerm_template_deployment" "app_service_plan" {
   deployment_mode     = "Incremental"
 
   parameters = {
-    name     = "${var.product}-${var.env}"
-    location = "${var.location}"
-    env      = "${var.env}"
-    capacity = "${var.capacity}"
-    asp_name = "${var.asp_name}-${var.env}"
-    ase_name = "${var.ase_name_list}"
-    tags     = "${var.tags_list}"
+    name         = "${var.product}-${var.env}"
+    location     = "${var.location}"
+    env          = "${var.env}"
+    asp_capacity = "${var.asp_capacity}"
+    asp_name     = "${var.asp_name}-${var.env}"
+    ase_name     = "${var.ase_name_list}"
+    tags         = "${var.tags_list}"
   }
 }
