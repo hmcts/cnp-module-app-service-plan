@@ -31,7 +31,7 @@ variable "asp_sku_size" {
 variable "asp_sku_capacity" {
   type        = "string"
   description = "(Optional) Specifies the number of workers associated with this App Service Plan."
-  default     = 2
+  default     = 1
 }
 
 variable "asp_properties_app_service_environment_id" {
@@ -55,7 +55,7 @@ variable "asp_properties_per_site_scaling" {
 variable "ase_name_list" {
   type        = "list"
   description = "A list of ASEs to which this ASP should be created"
-  default     = "core-compute-${var.env}"
+  default     = ["core-compute-${var.env}"]
 }
 
 //TAG SPECIFIC VARIABLES
