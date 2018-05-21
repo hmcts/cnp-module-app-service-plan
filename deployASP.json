@@ -23,6 +23,9 @@
     "asp_name": {
       "type": "string"
     },
+    "asp_sku_size": {
+      "type": "string"
+    },
     "ase_name": {
       "type": "string"
     },
@@ -37,8 +40,6 @@
     }
   },
   "variables": {
-    "convertTest": "[base64(parameters('tag_list'))]",
-    "convertedBack": "[base64ToJson(variables('convertTest'))]",
     "tags" : "[base64ToJson(base64(parameters('tag_list')))]",
     "aspname": "[concat(parameters('asp_name'), '-asp')]",
     "aspResourceGroup": "[concat('mgmt-asp-', parameters('env'))]",
@@ -70,9 +71,9 @@
                 "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]"
               },
               "sku": {
-                "name": "I2",
+                "name": "[parameters('asp_sku_size')]",
                 "tier": "Isolated",
-                "size": "I2",
+                "size": "[parameters('asp_sku_size')]",
                 "family": "I",
                 "capacity": "[parameters('asp_capacity')]"
               }

@@ -15,6 +15,7 @@ resource "azurerm_template_deployment" "app_service_plan" {
     env          = "${var.env}"
     asp_capacity = "${var.asp_capacity}"
     asp_name     = "${var.asp_name}"
+    asp_sku_size = "${var.asp_sku_size}"
     ase_name     = "${var.ase_name}"
     tag_list     = "${jsonencode(var.tag_list)}"
     time_stamp   = "${timestamp()}"

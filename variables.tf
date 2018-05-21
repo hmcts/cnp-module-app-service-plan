@@ -31,7 +31,7 @@ variable "asp_name" {
 variable "asp_sku_size" {
   type        = "string"
   description = "(Required) Specifies the plan's instance size."
-  default     = ""
+  default     = "I2"
 }
 
 variable "asp_capacity" {
