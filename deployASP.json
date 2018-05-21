@@ -10,9 +10,6 @@
     },
     "location": {
       "type": "string",
-      "allowedValues": [
-        "UK South"
-      ],
       "metadata": {
         "description": "Location of the App Service Environment"
       }
@@ -23,11 +20,16 @@
         "description": "Environment Specific tag"
       }
     },
-    "capacity": {
-      "type": "string",
-      "defaultValue": "2"
-    },
     "asp_name": {
+      "type": "string"
+    },
+    "ase_name": {
+      "type": "string"
+    },
+    "asp_capacity": {
+      "type": "string"
+    },
+    "tag_list": {
       "type": "string"
     }
   },
@@ -61,15 +63,15 @@
               },
               "properties": {
                 "name": "[variables('serverFarmName')]",
-                "hostingEnvironment": "[concat('core-compute-', parameters('env'))]",
-                "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', concat('core-compute-', parameters('env')))]"
+                "hostingEnvironment": "[parameters('ase_name')]",
+                "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]"
               },
               "sku": {
                 "name": "I2",
                 "tier": "Isolated",
                 "size": "I2",
                 "family": "I",
-                "capacity": "[parameters('capacity')]"
+                "capacity": "[parameters('asp_capacity')]"
               }
             }
           ]
@@ -80,6 +82,10 @@
   "outputs": {
     "aspResourceID": {
       "value": "[variables('serverFarmId')]",
+      "type": "string"
+    },
+    "aseResourceID": {
+      "value": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]",
       "type": "string"
     }
   }
