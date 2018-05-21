@@ -60,10 +60,7 @@
               "type": "Microsoft.Web/serverfarms",
               "location": "[parameters('location')]",
               "apiVersion": "2016-09-01",
-              "tags": {
-                "displayName": "Application Service Plan",
-                "environment": "[parameters('env')]"
-              },
+              "tags": "[parameters('tag_list')]",
               "properties": {
                 "name": "[variables('serverFarmName')]",
                 "hostingEnvironment": "[parameters('ase_name')]",
