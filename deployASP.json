@@ -87,6 +87,10 @@
     "aseResourceID": {
       "value": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]",
       "type": "string"
+    },
+    "tagList": {
+      "value": "[parameters('tag_list')]",
+      "type": "string"
     }
   }
 }
