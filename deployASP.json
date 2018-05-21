@@ -37,6 +37,8 @@
     }
   },
   "variables": {
+    "convertTest": "[base64(parameters('tag_list'))]",
+    "convertedBack": "[base64ToJson(variables('convertTest'))]",
     "aspname": "[concat(parameters('asp_name'), '-asp')]",
     "aspResourceGroup": "[concat('mgmt-asp-', parameters('env'))]",
     "serverFarmName": "[if(contains(parameters('asp_name'), 'null'), parameters('name'), variables('aspname'))]",
@@ -54,14 +56,13 @@
         "template": {
           "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
           "contentVersion": "1.0.0.0",
-          "name": "[concat('inner-aspDeploy-', variables('serverFarmName'))]",
           "resources": [
             {
               "name": "[variables('serverFarmName')]",
               "type": "Microsoft.Web/serverfarms",
               "location": "[parameters('location')]",
               "apiVersion": "2016-09-01",
-
+              "tags": "[variables('convertedBack')]",
               "properties": {
                 "name": "[variables('serverFarmName')]",
                 "hostingEnvironment": "[parameters('ase_name')]",
