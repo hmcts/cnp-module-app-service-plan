@@ -39,6 +39,7 @@
   "variables": {
     "convertTest": "[base64(parameters('tag_list'))]",
     "convertedBack": "[base64ToJson(variables('convertTest'))]",
+    "tags" : "[base64ToJson(base64(parameters('tag_list')))]",
     "aspname": "[concat(parameters('asp_name'), '-asp')]",
     "aspResourceGroup": "[concat('mgmt-asp-', parameters('env'))]",
     "serverFarmName": "[if(contains(parameters('asp_name'), 'null'), parameters('name'), variables('aspname'))]",
@@ -62,7 +63,7 @@
               "type": "Microsoft.Web/serverfarms",
               "location": "[parameters('location')]",
               "apiVersion": "2016-09-01",
-              "tags": "[variables('convertedBack')]",
+              "tags": "[variables('tags')]",
               "properties": {
                 "name": "[variables('serverFarmName')]",
                 "hostingEnvironment": "[parameters('ase_name')]",
