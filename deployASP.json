@@ -31,6 +31,9 @@
     },
     "tag_list": {
       "type": "string"
+    },
+    "time_stamp": {
+      "type": "string"
     }
   },
   "variables": {
@@ -86,6 +89,10 @@
             },
             "tagList": {
               "value": "[parameters('tag_list')]",
+              "type": "string"
+            },
+            "timeStamp": {
+              "value": "[parameters('time_stamp')]",
               "type": "string"
             }
           }
