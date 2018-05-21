@@ -30,7 +30,7 @@
       "type": "string"
     },
     "tag_list": {
-      "type": "object"
+      "type": "string"
     },
     "time_stamp": {
       "type": "string"
@@ -61,7 +61,7 @@
               "type": "Microsoft.Web/serverfarms",
               "location": "[parameters('location')]",
               "apiVersion": "2016-09-01",
-              "tags": "[parameters('tag_list')]",
+
               "properties": {
                 "name": "[variables('serverFarmName')]",
                 "hostingEnvironment": "[parameters('ase_name')]",
