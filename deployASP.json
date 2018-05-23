@@ -40,65 +40,47 @@
     }
   },
   "variables": {
-    "tags" : "[base64ToJson(base64(parameters('tag_list')))]",
-    "aspname": "[concat(parameters('asp_name'), '-asp')]",
-    "aspResourceGroup": "[concat('mgmt-asp-', parameters('env'))]",
-    "serverFarmName": "[if(contains(parameters('asp_name'), 'null'), parameters('name'), variables('aspname'))]",
-    "serverFarmRG": "[if(contains(parameters('asp_name'), 'null'),  parameters('name'), variables('aspResourceGroup'))]",
-    "serverFarmId": "[if(contains(parameters('asp_name'), 'null'), resourceId('Microsoft.Web/serverfarms', variables('serverFarmName')), resourceId(variables('aspResourceGroup'), 'Microsoft.Web/serverfarms', variables('serverFarmName')))]"
+    "tags": "[base64ToJson(base64(parameters('tag_list')))]",
+    "aspname": "[parameters('asp_name')]",
+    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('asp_name'))]"
   },
   "resources": [
     {
-      "apiVersion": "2017-05-10",
-      "name": "[concat('aspDeploy-', variables('serverFarmName'))]",
-      "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[variables('serverFarmRG')]",
+      "name": "[variables('aspname')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[parameters('location')]",
+      "apiVersion": "2016-09-01",
+      "tags": "[variables('tags')]",
       "properties": {
-        "mode": "Incremental",
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "resources": [
-            {
-              "name": "[variables('serverFarmName')]",
-              "type": "Microsoft.Web/serverfarms",
-              "location": "[parameters('location')]",
-              "apiVersion": "2016-09-01",
-              "tags": "[variables('tags')]",
-              "properties": {
-                "name": "[variables('serverFarmName')]",
-                "hostingEnvironment": "[parameters('ase_name')]",
-                "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]"
-              },
-              "sku": {
-                "name": "[parameters('asp_sku_size')]",
-                "tier": "Isolated",
-                "size": "[parameters('asp_sku_size')]",
-                "family": "I",
-                "capacity": "[parameters('asp_capacity')]"
-              }
-            }
-          ],
-          "outputs": {
-            "aspResourceID": {
-              "value": "[variables('serverFarmId')]",
-              "type": "string"
-            },
-            "aseResourceID": {
-              "value": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]",
-              "type": "string"
-            },
-            "tagList": {
-              "value": "[parameters('tag_list')]",
-              "type": "string"
-            },
-            "timeStamp": {
-              "value": "[parameters('time_stamp')]",
-              "type": "string"
-            }
-          }
-        }
+        "name": "[variables('aspname')]",
+        "hostingEnvironment": "[parameters('ase_name')]",
+        "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]"
+      },
+      "sku": {
+        "name": "[parameters('asp_sku_size')]",
+        "tier": "Isolated",
+        "size": "[parameters('asp_sku_size')]",
+        "family": "I",
+        "capacity": "[parameters('asp_capacity')]"
       }
     }
-  ]
+  ],
+  "outputs": {
+    "aspResourceID": {
+      "value": "[variables('serverFarmId')]",
+      "type": "string"
+    },
+    "aseResourceID": {
+      "value": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]",
+      "type": "string"
+    },
+    "tagList": {
+      "value": "[parameters('tag_list')]",
+      "type": "string"
+    },
+    "timeStamp": {
+      "value": "[parameters('time_stamp')]",
+      "type": "string"
+    }
+  }
 }
