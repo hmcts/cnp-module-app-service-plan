@@ -31,7 +31,7 @@ resource "null_resource" "ilbIP" {
   }
 
   provisioner "local-exec" {
-    command = "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-sandbox bash -e az resource show --ids ${azurerm_template_deployment.app_service_plan.outputs["aseResourceID"]}/capacities/virtualip --query internalIpAddress > ip.txt"
+    command = "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-sandbox bash -e az resource show --ids ${azurerm_template_deployment.app_service_plan.outputs["aseResourceID"]}/capacities/virtualip --query internalIpAddress > ${path.module}/ip.txt"
   }
 }
 
