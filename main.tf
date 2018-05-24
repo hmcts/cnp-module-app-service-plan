@@ -31,6 +31,6 @@ resource "null_resource" "ilbIP" {
   }
 
   provisioner "local-exec" {
-    command = "bash -e az resource show --ids ${azurerm_template_deployment.app_service_plan.outputs["aseResourceID"]}/virtualip --query internalIpAddress"
+    command = "bash -e az resource show --ids ${azurerm_template_deployment.app_service_plan.outputs["aseResourceID"]}/capacities/virtualip --query internalIpAddress"
   }
 }
