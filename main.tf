@@ -24,3 +24,13 @@ resource "azurerm_template_deployment" "app_service_plan" {
     time_stamp   = "${timestamp()}"
   }
 }
+
+resource "null_resource" "ilbIP" {
+  triggers {
+    trigger = "${azurerm_template_deployment.app_service_plan.name}"
+  }
+
+  provisioner "local-exec" {
+    command = "bash -e az resource show --ids ${azurerm_template_deployment.app_service_plan.aseResourceID}/virtualip --query internalIpAddress"
+  }
+}
