@@ -2,23 +2,14 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "name": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the App Service Environment"
-      }
-    },
-    "location": {
-      "type": "string",
-      "metadata": {
-        "description": "Location of the App Service Environment"
-      }
-    },
     "env": {
       "type": "string",
       "metadata": {
         "description": "Environment Specific tag"
       }
+    },
+    "location": {
+      "type": "string"
     },
     "asp_name": {
       "type": "string"
