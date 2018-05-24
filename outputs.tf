@@ -7,6 +7,6 @@ output "aseResourceID" {
 }
 
 output "ipbIP" {
-  depends_on = "${azurerm_template_deployment.app_service_plan}"
+  depends_on = "${null_resource.ilbIP}"
   value      = "${file("ip.txt")}"
 }
