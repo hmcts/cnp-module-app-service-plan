@@ -1,8 +1,4 @@
 //SHARED VARIABLES
-variable "product" {
-  type        = "string"
-  description = "The name of your application"
-}
 
 variable "location" {
   type        = "string"
