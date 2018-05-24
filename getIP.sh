@@ -5,9 +5,9 @@ location=$2
 
 echo "Getting IP address ..."
 ip=$(env AZURE_CONFIG_DIR=/opt/jenkins/.azure-sandbox bash -e az resource show --ids $aseID/capacities/virtualip --query internalIpAddress)
-ilbIP=$(echo "$ip" | tr -d \")
+ilbIp=$(echo "$ip" | tr -d \")
 
-echo "IP address is $ilbIP"
+echo "IP address is $ilbIp"
 
-printf "%s" "$ilbIP" >> $location/ip.txt
+printf "%s" "$ilbIp" >> $location/ip.txt
 

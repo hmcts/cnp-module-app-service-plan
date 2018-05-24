@@ -25,7 +25,7 @@ resource "azurerm_template_deployment" "app_service_plan" {
   }
 }
 
-resource "null_resource" "ilbIP" {
+resource "null_resource" "ilbIp" {
   triggers {
     trigger = "${azurerm_template_deployment.app_service_plan.parameters.time_stamp}"
   }
@@ -35,7 +35,7 @@ resource "null_resource" "ilbIP" {
   }
 }
 
-data "local_file" "ilbIP" {
+data "local_file" "ilbIp" {
   filename   = "${path.module}/ip.txt"
-  depends_on = ["null_resource.ilbIP"]
+  depends_on = ["null_resource.ilbIp"]
 }
