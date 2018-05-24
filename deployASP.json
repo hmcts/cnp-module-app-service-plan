@@ -62,7 +62,7 @@
       "type": "string"
     },
     "aseResourceID": {
-      "value": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]",
+      "value": "[reference(concat('Microsoft.Web/serverfarms/', variables('aspname')), '2016-09-01', 'Full').properties.hostingEnvironmentId]",
       "type": "string"
     },
     "tagList": {
