@@ -34,3 +34,8 @@ resource "null_resource" "ilbIP" {
     command = "env AZURE_CONFIG_DIR=/opt/jenkins/.azure-sandbox bash -e az resource show --ids ${azurerm_template_deployment.app_service_plan.outputs["aseResourceID"]}/capacities/virtualip --query internalIpAddress > ip.txt"
   }
 }
+
+data "local_file" "ilbIP" {
+  filename  = "${path.module}/ip.txt"
+  dependson = "${null_resource.ilbIP}"
+}
