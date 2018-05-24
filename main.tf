@@ -27,7 +27,7 @@ resource "azurerm_template_deployment" "app_service_plan" {
 
 resource "null_resource" "ilbIP" {
   triggers {
-    trigger = "${azurerm_template_deployment.app_service_plan.time_stamp}"
+    trigger = "${azurerm_template_deployment.app_service_plan.parameters.time_stamp}"
   }
 
   provisioner "local-exec" {
