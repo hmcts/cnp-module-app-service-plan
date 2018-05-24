@@ -37,5 +37,5 @@ resource "null_resource" "ilbIP" {
 
 data "local_file" "ilbIP" {
   filename  = "${path.module}/ip.txt"
-  dependson = "${null_resource.ilbIP}"
+  dependson = "${null_resource.ilbIP.local-exec}"
 }
