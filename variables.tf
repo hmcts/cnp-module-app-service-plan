@@ -1,8 +1,4 @@
 //SHARED VARIABLES
-variable "product" {
-  type        = "string"
-  description = "The name of your application"
-}
 
 variable "location" {
   type        = "string"
@@ -13,6 +9,11 @@ variable "location" {
 variable "resource_group_name" {
   type        = "string"
   description = "This is the prefix your resource group name will have for your shared infrastructure"
+}
+
+variable "deployment_version" {
+  type        = "string"
+  description = "The version id for the infrastructure deployment"
 }
 
 //APP SERVICE PLAN SPECIFIC VARIABLES
@@ -31,7 +32,7 @@ variable "asp_name" {
 variable "asp_sku_size" {
   type        = "string"
   description = "(Required) Specifies the plan's instance size."
-  default     = ""
+  default     = "I2"
 }
 
 variable "asp_capacity" {
