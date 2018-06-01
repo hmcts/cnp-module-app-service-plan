@@ -3,7 +3,7 @@ data "template_file" "deployASP" {
 }
 
 locals {
-  asp_name = "${var.asp_name}-${var.env}-${var.deployment_version}"
+  asp_name = "${var.asp_name}-${var.env}"
 }
 
 # Deploy the App Service Plan

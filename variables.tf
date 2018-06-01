@@ -11,11 +11,6 @@ variable "resource_group_name" {
   description = "This is the prefix your resource group name will have for your shared infrastructure"
 }
 
-variable "deployment_version" {
-  type        = "string"
-  description = "The version id for the infrastructure deployment"
-}
-
 //APP SERVICE PLAN SPECIFIC VARIABLES
 variable "asp_sku_tier" {
   type        = "string"
