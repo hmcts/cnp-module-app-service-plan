@@ -1,0 +1,77 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "env": {
+      "type": "string",
+      "metadata": {
+        "description": "Environment Specific tag"
+      }
+    },
+    "location": {
+      "type": "string"
+    },
+    "asp_name": {
+      "type": "string"
+    },
+    "asp_sku_size": {
+      "type": "string"
+    },
+    "ase_name": {
+      "type": "string"
+    },
+    "asp_capacity": {
+      "type": "string"
+    },
+    "tag_list": {
+      "type": "string"
+    },
+    "time_stamp": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "tags": "[base64ToJson(base64(parameters('tag_list')))]",
+    "aspname": "[parameters('asp_name')]",
+    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('asp_name'))]"
+  },
+  "resources": [
+    {
+      "name": "[variables('aspname')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[parameters('location')]",
+      "apiVersion": "2016-09-01",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "name": "[variables('aspname')]",
+        "hostingEnvironment": "[parameters('ase_name')]",
+        "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]"
+      },
+      "sku": {
+        "name": "[parameters('asp_sku_size')]",
+        "tier": "Isolated",
+        "size": "[parameters('asp_sku_size')]",
+        "family": "I",
+        "capacity": "[parameters('asp_capacity')]"
+      }
+    }
+  ],
+  "outputs": {
+    "aspResourceID": {
+      "value": "[variables('serverFarmId')]",
+      "type": "string"
+    },
+    "aseResourceID": {
+      "value": "[reference(concat('Microsoft.Web/serverfarms/', variables('aspname')), '2016-09-01', 'Full').properties.hostingEnvironmentId]",
+      "type": "string"
+    },
+    "tagList": {
+      "value": "[parameters('tag_list')]",
+      "type": "string"
+    },
+    "timeStamp": {
+      "value": "[parameters('time_stamp')]",
+      "type": "string"
+    }
+  }
+}
