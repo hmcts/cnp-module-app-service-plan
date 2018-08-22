@@ -16,6 +16,7 @@ Names | Type | Required | Description
 
 ## Usage
 
+```terraform
 module "appServicePlan" {
   source              = "git@github.com:hmcts/moj-module-app-service-plan"
   location            = "UK South"
@@ -26,3 +27,4 @@ module "appServicePlan" {
   ase_name            = "${local.ase_name}"
   tag_list            = "${local.common_tags}"
 }
+```
