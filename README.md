@@ -12,7 +12,7 @@ Names | Type | Required | Description
 `asp_capacity` | String | No | Number of workers to be provisioned with plan, default is 2
 `asp_name` | String | Yes | Name of app service plan to be created
 `ase_name` | String | Yes | Name of the app service environment the plan should live
-'asp_sku_size' | String | No| Size of Worker Instance 'I1' 'I2' 'I3'
+`asp_sku_size` | String | No| Size of Worker Instance 'I1' 'I2' 'I3'
 `tag_list` | Map | Yes | List of tags to be deployed with resource
 
 ## Usage
