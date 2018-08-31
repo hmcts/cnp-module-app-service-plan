@@ -24,6 +24,12 @@ variable "asp_name" {
   default     = ""
 }
 
+variable "asp_os" {
+  type        = "string"
+  description = "(Optional) Specifies the OS that app's should run on, app for windows, linux for linux."
+  default     = "app"
+}
+
 variable "asp_sku_size" {
   type        = "string"
   description = "(Required) Specifies the plan's instance size."

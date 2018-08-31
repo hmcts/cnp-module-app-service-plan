@@ -10,6 +10,7 @@ Names | Type | Required | Description
 `env` | String | Yes | CNP Environment such as sandbox
 `resource_group_name` | String | Yes | Names of shared infra resource group to deploy plan to
 `asp_capacity` | String | No | Number of workers to be provisioned with plan, default is 2
+`asp_os` | String | No | Specifies the OS that app's should run on, app for windows, linux for linux
 `asp_name` | String | Yes | Name of app service plan to be created
 `ase_name` | String | Yes | Name of the app service environment the plan should live
 `asp_sku_size` | String | No| Size of Worker Instance 'I1' 'I2' 'I3'
