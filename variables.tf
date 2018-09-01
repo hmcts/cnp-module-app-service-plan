@@ -24,10 +24,10 @@ variable "asp_name" {
   default     = ""
 }
 
-variable "asp_os" {
+variable "linux" {
   type        = "string"
-  description = "(Optional) Specifies the OS that app's should run on, app for windows, linux for linux."
-  default     = "app"
+  description = "(Optional) Specifies if the ASP should be of kind linux, defaults to windows."
+  default     = "false"
 }
 
 variable "asp_sku_size" {

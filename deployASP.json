@@ -14,7 +14,7 @@
     "asp_name": {
       "type": "string"
     },
-    "asp_os": {
+    "kind": {
       "type": "string"
     },
     "asp_sku_size": {
@@ -57,7 +57,7 @@
         "family": "I",
         "capacity": "[parameters('asp_capacity')]"
       },
-      "kind": "[parameters('asp_os')]"
+      "kind": "[parameters('kind')]"
     }
   ],
   "outputs": {
