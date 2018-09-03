@@ -24,6 +24,12 @@ variable "asp_name" {
   default     = ""
 }
 
+variable "linux" {
+  type        = "string"
+  description = "(Optional) Specifies if the ASP should be of kind linux, defaults to windows."
+  default     = "false"
+}
+
 variable "asp_sku_size" {
   type        = "string"
   description = "(Required) Specifies the plan's instance size."
