@@ -25,18 +25,3 @@ resource "azurerm_template_deployment" "app_service_plan" {
     time_stamp   = "${timestamp()}"
   }
 }
-
-resource "null_resource" "ilbIp" {
-  triggers {
-    trigger = "${azurerm_template_deployment.app_service_plan.parameters.time_stamp}"
-  }
-
-  provisioner "local-exec" {
-    command = "bash -e ${path.module}/getIP.sh ${azurerm_template_deployment.app_service_plan.outputs["aseResourceID"]} ${path.module}"
-  }
-}
-
-data "local_file" "ilbIp" {
-  filename   = "${path.module}/ip.txt"
-  depends_on = ["null_resource.ilbIp"]
-}
