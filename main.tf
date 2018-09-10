@@ -19,6 +19,7 @@ resource "azurerm_template_deployment" "app_service_plan" {
     asp_capacity = "${var.asp_capacity}"
     asp_name     = "${local.asp_name}"
     kind         = "${var.linux == "true" ? "linux" : "app"}"
+    reserved     = "${var.linux == "true" ? "true" : "false"}"
     asp_sku_size = "${var.asp_sku_size}"
     ase_name     = "${var.ase_name}"
     tag_list     = "${jsonencode(var.tag_list)}"

@@ -17,6 +17,9 @@
     "kind": {
       "type": "string"
     },
+    "reserved": {
+      "type": "string"
+    },
     "asp_sku_size": {
       "type": "string"
     },
@@ -48,7 +51,8 @@
       "properties": {
         "name": "[variables('aspname')]",
         "hostingEnvironment": "[parameters('ase_name')]",
-        "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]"
+        "hostingEnvironmentId": "[resourceId('Microsoft.Web/hostingEnvironments', parameters('ase_name'))]",
+        "reserved": "[bool(parameters('reserved'))]"
       },
       "sku": {
         "name": "[parameters('asp_sku_size')]",
