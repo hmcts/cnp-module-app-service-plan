@@ -22,7 +22,7 @@ resource "azurerm_template_deployment" "app_service_plan" {
     reserved     = "${var.linux == "true" ? "true" : "false"}"
     asp_sku_size = "${var.asp_sku_size}"
     ase_name     = "${var.ase_name}"
-    tag_list     = "${merge(var.common_tags, jsonencode(var.tag_list))}"
+    tag_list     = "${jsonencode(var.tag_list)}"
     time_stamp   = "${timestamp()}"
   }
 }
