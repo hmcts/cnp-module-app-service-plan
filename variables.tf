@@ -50,10 +50,3 @@ variable "tag_list" {
   type        = "map"
   description = "List of tags to be applied to each resource"
 }
-
-variable "common_tags" {
-  type = "map"
-  default = {
-    "Team Name" = "pleaseTagMe"
-  }
-}
