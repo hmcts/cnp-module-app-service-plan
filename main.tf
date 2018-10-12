@@ -30,11 +30,11 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   # template_body       = "${data.template_file.deployASP.rendered}"
   name                = "${local.asp_name}"
   resource_group_name = "${var.resource_group_name}"
-  deployment_mode     = "Incremental"
+  #deployment_mode     = "Incremental"
   location     = "${var.location}"
   
   kind         = "${var.linux == "true" ? "linux" : "app"}"
-  reserved     = "${var.linux == "true" ? "true" : "false"}"
+  #reserved     = "${var.linux == "true" ? "true" : "false"}"
 
   sku {
     tier = "Isolated"
