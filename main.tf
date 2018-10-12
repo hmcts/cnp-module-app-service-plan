@@ -23,6 +23,5 @@ resource "azurerm_template_deployment" "app_service_plan" {
     asp_sku_size = "${var.asp_sku_size}"
     ase_name     = "${var.ase_name}"
     tag_list     = "${jsonencode(merge(var.common_tags, var.tag_list))}"
-    time_stamp   = "${timestamp()}"
   }
 }
