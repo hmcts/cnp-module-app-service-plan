@@ -26,7 +26,7 @@ locals {
 #   }
 # }
 
-resource "azurerm_template_deployment" "app_service_plan" {
+resource "azurerm_app_service_plan" "app_service_plan" {
   # template_body       = "${data.template_file.deployASP.rendered}"
   name                = "${local.asp_name}"
   resource_group_name = "${var.resource_group_name}"
