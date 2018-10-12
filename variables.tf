@@ -57,3 +57,7 @@ variable "common_tags" {
     "Team Name" = "pleaseTagMe"
   }
 }
+
+variable "subscriptionId" {
+  type        = "string"
+}
