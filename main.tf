@@ -43,7 +43,8 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   }
 
   properties{
-    app_service_environment_id = "/subscriptions/${var.subscriptionId}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Web/hostingEnvironments/${var.ase_name}"
+    //app_service_environment_id = "/subscriptions/${var.subscriptionId}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Web/hostingEnvironments/${var.ase_name}"
+    app_service_environment_id = "/subscriptions/bf308a5c-0624-4334-8ff8-8dca9fd43783/resourceGroups/core-infra-sandbox/providers/Microsoft.Web/hostingEnvironments/core-compute-sandbox"
   }
     tags = "${merge(var.common_tags, var.tag_list)}"
     //tags = "${var.tag_list}"
