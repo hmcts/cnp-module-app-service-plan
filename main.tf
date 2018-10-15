@@ -43,7 +43,7 @@ resource "azurerm_app_service_plan" "app_service_plan" {
   }
 
   properties{
-    app_service_environment_id = "/subscriptions/${var.subscriptionId}/resourceGroups/${resource_group_name}/providers/Microsoft.Web/hostingEnvironments/${var.ase_name}"
+    app_service_environment_id = "/subscriptions/${var.subscriptionId}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Web/hostingEnvironments/${var.ase_name}"
   }
     tags = "${merge(var.common_tags, var.tag_list)}"
     //tags = "${var.tag_list}"
