@@ -26,15 +26,13 @@ locals {
 #   }
 # }
 
+# This component fail because of this bug https://github.com/Azure/azure-rest-api-specs/issues/3747 in the Azure Api
 resource "azurerm_app_service_plan" "app_service_plan" {
-  # template_body       = "${data.template_file.deployASP.rendered}"
   name                = "${local.asp_name}"
   resource_group_name = "${var.resource_group_name}"
-  #deployment_mode     = "Incremental"
   location     = "${var.location}"
   
   kind         = "${var.linux == "true" ? "linux" : "app"}"
-  #reserved     = "${var.linux == "true" ? "true" : "false"}"
 
   sku {
     tier = "Isolated"
@@ -42,10 +40,8 @@ resource "azurerm_app_service_plan" "app_service_plan" {
     capacity = "${var.asp_capacity}"
   }
 
-  properties{
-    //app_service_environment_id = "/subscriptions/${var.subscriptionId}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Web/hostingEnvironments/${var.ase_name}"
-    app_service_environment_id = "/subscriptions/bf308a5c-0624-4334-8ff8-8dca9fd43783/resourceGroups/core-infra-sandbox/providers/Microsoft.Web/hostingEnvironments/core-compute-sandbox"
-  }
+  properties{ 
+    app_service_environment_id = "/subscriptions/${var.subscriptionId}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Web/hostingEnvironments/${var.ase_name}"
+   }
     tags = "${merge(var.common_tags, var.tag_list)}"
-    //tags = "${var.tag_list}"
 }
