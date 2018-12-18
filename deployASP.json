@@ -62,6 +62,10 @@
     }
   ],
   "outputs": {
+    "aspResourceID": {
+      "value": "[variables('serverFarmId')]",
+      "type": "string"
+    },
     "aseResourceID": {
       "value": "[reference(concat('Microsoft.Web/serverfarms/', variables('aspname')), '2016-09-01', 'Full').properties.hostingEnvironmentId]",
       "type": "string"
