@@ -1,3 +1,3 @@
 output "aspResourceID" {	
-  value = "${azurerm_template_deployment.app_service_plan.outputs["aspResourceID"]}"	
+  value = "${lookup(azurerm_template_deployment.app_service_plan.outputs, "aspResourceID")}"
 }
