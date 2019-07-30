@@ -15,6 +15,7 @@ resource "azurerm_template_deployment" "app_service_plan" {
   deployment_mode     = "Incremental"
 
   parameters = {
+    enabled      = "${var.enabled}"
     location     = "${var.location}"
     env          = "${var.env}"
     asp_capacity = "${var.asp_capacity}"
