@@ -53,12 +53,14 @@ variable "tag_list" {
 
 variable "common_tags" {
   type = "map"
+
   default = {
     "Team Name" = "pleaseTagMe"
   }
 }
 
-variable "enabled" { 
-    type = "string"
-    default = "false"
+variable "aspEnabled" {
+  type        = "string"
+  description = "Enable ASP to deploy on shared environments"
+  default     = "false"
 }
