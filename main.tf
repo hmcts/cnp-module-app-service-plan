@@ -1,5 +1,5 @@
 data "template_file" "deployASP" {
-  count    = "${var.aspEnabled ? "true" : "false"}"
+  count    = "${var.aspEnabled ? 1 : 0}"
   template = "${file("${path.module}/deployASP.json")}"
 }
 
@@ -9,7 +9,7 @@ locals {
 
 # Deploy the App Service Plan
 resource "azurerm_template_deployment" "app_service_plan" {
-  count               = "${var.aspEnabled ? "true" : "false"}"
+  count               = "${var.aspEnabled ? 1 : 0}"
   template_body       = "${data.template_file.deployASP.rendered}"
   name                = "${local.asp_name}"
   resource_group_name = "${var.resource_group_name}"
