@@ -62,5 +62,5 @@ variable "common_tags" {
 variable "aspEnabled" {
   type        = "string"
   description = "Enable ASP to deploy on shared environments"
-  default     = "false"
+  default     = "true"
 }
