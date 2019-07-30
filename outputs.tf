@@ -1,3 +1,3 @@
 output "aspResourceID" {
-  value = "${azurerm_template_deployment.app_service_plan[0].outputs["aspResourceID"]}"
+  value = "${join("",azurerm_template_deployment.app_service_plan.*.outputs)}"
 }
