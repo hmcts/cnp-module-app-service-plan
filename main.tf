@@ -8,14 +8,13 @@ locals {
 
 # Deploy the App Service Plan
 resource "azurerm_template_deployment" "app_service_plan" {
-  count               = "${var.enabled ? 1 : 0}"
+  count               = "${var.enabled}"
   template_body       = "${data.template_file.deployASP.rendered}"
   name                = "${local.asp_name}"
   resource_group_name = "${var.resource_group_name}"
   deployment_mode     = "Incremental"
 
   parameters = {
-    enabled      = "${var.enabled}"
     location     = "${var.location}"
     env          = "${var.env}"
     asp_capacity = "${var.asp_capacity}"
