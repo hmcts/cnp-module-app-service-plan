@@ -60,5 +60,5 @@ variable "common_tags" {
 
 variable "enabled" { 
     type = "string"
-    default = "0"
+    default = "false"
 }
