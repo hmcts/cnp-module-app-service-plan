@@ -57,3 +57,8 @@ variable "common_tags" {
     "Team Name" = "pleaseTagMe"
   }
 }
+
+variable "enabled" { 
+    type = "string"
+    default = "0"
+}
