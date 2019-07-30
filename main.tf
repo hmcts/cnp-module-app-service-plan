@@ -1,4 +1,5 @@
 data "template_file" "deployASP" {
+  count    = "${var.aspEnabled ? "true" : "false"}"
   template = "${file("${path.module}/deployASP.json")}"
 }
 
