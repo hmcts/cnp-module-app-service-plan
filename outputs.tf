@@ -1,3 +1,3 @@
 output "aspResourceID" {
-  value = "${var.enabled}"
+  value = "===================== VALUE  ${var.enabled}"
  }
