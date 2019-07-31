@@ -1,3 +1,3 @@
 output "aspResourceID" {
-  value = "${join("",lookup(azurerm_template_deployment.app_service_plan.outputs, "aspResourceID"))}"
+  value = "${element(concat(azurerm_template_deployment.app_service_plan.*.outputs, list("")), 0)}"
 }
