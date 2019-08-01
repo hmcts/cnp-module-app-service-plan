@@ -1,3 +1,3 @@
 output "aspResourceID" {
-  value = "${var.aspEnabled}"
+  value = "${var.aspEnabled ? azurerm_template_deployment.app_service_plan.outputs["aspResourceID"] : ""}
 }
