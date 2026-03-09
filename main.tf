@@ -17,10 +17,6 @@ resource "azurerm_service_plan" "app_service_plan" {
   worker_count               = var.asp_capacity
   app_service_environment_id = var.app_service_environment_id != "" ? var.app_service_environment_id : null
 
-  identity {
-    type = "SystemAssigned"
-  }
-
   tags = local.merged_tags
 }
 
