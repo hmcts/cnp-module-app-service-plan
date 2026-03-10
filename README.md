@@ -1,31 +1,54 @@
 # cnp-module-app-service-plan
-Terraform Module for creating a shared Application Service Plan.
+Terraform module for creating an Azure App Service Plan (`azurerm_service_plan`).
 
 ## Variables
 
-Names | Type | Required | Description
---- | --- | --- | --- |
-`location` | String | Yes | Location of resouce ie UK SOUTH
-`resource_group_name` | String | Yes | Names of shared infra resource group to deploy plan to
-`asp_name` | String | Yes | Name of app service plan to be created
-`linux` | String | No | Specifies if the ASP should be of kind linux, defaults to windows
-`asp_sku_size` | String | No| Size of Worker Instance 'I1' 'I2' 'I3'
-`asp_capacity` | String | No | Number of workers to be provisioned with plan, default is 2
-`ase_name` | String | Yes | Name of the app service environment the plan should live
-`env` | String | Yes | CNP Environment such as sandbox
-`tag_list` | Map | Yes | List of tags to be deployed with resource
+| Name | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `location` | string | No | `"UK South"` | Azure region to deploy the App Service Plan |
+| `resource_group_name` | string | Yes | - | Resource group to deploy the App Service Plan into |
+| `asp_name` | string | Yes | - | Base name of the App Service Plan. The environment suffix is appended automatically |
+| `env` | string | Yes | - | Deployment environment (e.g. sbox, aat, stg, prod) |
+| `os_type` | string | No | `"Linux"` | OS type for the App Service Plan. Possible values: `Windows`, `Linux`, `WindowsContainer` |
+| `asp_sku_size` | string | No | `"B1"` | SKU name for the App Service Plan (e.g. `B1`, `S1`, `P1v3`) |
+| `asp_capacity` | number | No | `1` | Number of workers (instances) for the App Service Plan |
+| `app_service_environment_id` | string | No | `""` | Resource ID of an App Service Environment to host the plan in. Leave empty for a multi-tenant plan |
+| `common_tags` | map(string) | No | `{}` | Common tags applied to all resources |
+| `tag_list` | map(string) | No | `{}` | Additional tags to be applied to each resource |
 
 ## Usage
 
 ```terraform
-module "appServicePlan" {
-  source              = "git@github.com:hmcts/moj-module-app-service-plan"
-  location            = "UK South"
-  env                 = "${var.env}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  asp_capacity        = "${var.asp_capacity}"
-  asp_name            = "${var.product}"
-  ase_name            = "${local.ase_name}"
-  tag_list            = "${local.common_tags}"
+module "app_service_plan" {
+  source = "git@github.com:hmcts/cnp-module-app-service-plan?ref=master"
+
+  asp_name            = var.product
+  env                 = var.env
+  location            = var.location
+  resource_group_name = local.shared_infra_rg
+  asp_sku_size        = var.asp_sku_size
+  asp_capacity        = var.asp_capacity
+  common_tags         = var.common_tags
 }
 ```
+
+To use a Windows App Service Plan:
+
+```terraform
+module "app_service_plan" {
+  source = "git@github.com:hmcts/cnp-module-app-service-plan?ref=master"
+
+  asp_name            = var.product
+  env                 = var.env
+  location            = var.location
+  resource_group_name = local.shared_infra_rg
+  os_type             = "Windows"
+  common_tags         = var.common_tags
+}
+```
+
+## Outputs
+
+| Name | Description |
+| --- | --- |
+| `asp_id` | Resource ID of the App Service Plan |
