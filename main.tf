@@ -1,27 +1,24 @@
-data "template_file" "deployASP" {
-  template = "${file("${path.module}/deployASP.json")}"
-}
-
 locals {
   asp_name = "${var.asp_name}-${var.env}"
+
+  merged_tags = merge(var.common_tags, var.tag_list)
 }
 
-# Deploy the App Service Plan
-resource "azurerm_template_deployment" "app_service_plan" {
-  template_body       = "${data.template_file.deployASP.rendered}"
-  name                = "${local.asp_name}"
-  resource_group_name = "${var.resource_group_name}"
-  deployment_mode     = "Incremental"
+# App Service Plan (replaces azurerm_template_deployment + ARM template)
+resource "azurerm_service_plan" "app_service_plan" {
+  name                       = local.asp_name
+  location                   = var.location
+  resource_group_name        = var.resource_group_name
+  os_type                    = var.os_type
+  sku_name                   = var.asp_sku_size
+  worker_count               = var.asp_capacity
+  app_service_environment_id = var.app_service_environment_id != "" ? var.app_service_environment_id : null
 
-  parameters = {
-    location     = "${var.location}"
-    env          = "${var.env}"
-    asp_capacity = "${var.asp_capacity}"
-    asp_name     = "${local.asp_name}"
-    kind         = "${var.linux == "true" ? "linux" : "app"}"
-    reserved     = "${var.linux == "true" ? "true" : "false"}"
-    asp_sku_size = "${var.asp_sku_size}"
-    ase_name     = "${var.ase_name}"
-    tag_list     = "${jsonencode(merge(var.common_tags, var.tag_list))}"
-  }
+  tags = local.merged_tags
 }
+
+# NOTE: Azure does not support private endpoints directly on an App Service Plan
+# (Microsoft.Web/serverFarms). Private endpoints are attached to the individual
+# apps (Microsoft.Web/sites) that run on the plan. To restrict network access,
+# use VNet integration and access restrictions on the app itself, or use an
+# App Service Environment (ASE) which is inherently network-isolated.
