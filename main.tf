@@ -1,9 +1,6 @@
 locals {
   asp_name = "${var.asp_name}-${var.env}"
 
-  # Derive OS type from the linux variable for the service plan resource
-  os_type = var.linux ? "Linux" : "Windows"
-
   merged_tags = merge(var.common_tags, var.tag_list)
 }
 
@@ -12,7 +9,7 @@ resource "azurerm_service_plan" "app_service_plan" {
   name                       = local.asp_name
   location                   = var.location
   resource_group_name        = var.resource_group_name
-  os_type                    = local.os_type
+  os_type                    = var.os_type
   sku_name                   = var.asp_sku_size
   worker_count               = var.asp_capacity
   app_service_environment_id = var.app_service_environment_id != "" ? var.app_service_environment_id : null

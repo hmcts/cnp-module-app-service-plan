@@ -39,16 +39,21 @@ variable "asp_name" {
   description = "Base name of the App Service Plan. The environment suffix is appended automatically."
 }
 
-variable "linux" {
-  type        = bool
-  description = "Set to true to create a Linux App Service Plan, false for Windows."
-  default     = false
+variable "os_type" {
+  type        = string
+  description = "The OS type for the App Service Plan. Possible values are Windows, Linux, or WindowsContainer."
+  default     = "Linux"
+
+  validation {
+    condition     = contains(["Windows", "Linux", "WindowsContainer"], var.os_type)
+    error_message = "os_type must be one of: Windows, Linux, WindowsContainer."
+  }
 }
 
 variable "asp_sku_size" {
   type        = string
   description = "The SKU name for the App Service Plan (e.g. P1v3, P2v3, I1v2, I2v2, B1, S1)."
-  default     = "P1v3"
+  default     = "B1"
 }
 
 variable "asp_capacity" {
