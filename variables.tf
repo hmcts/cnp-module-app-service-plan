@@ -68,5 +68,11 @@ variable "app_service_environment_id" {
   default     = ""
 }
 
+variable "zone_balancing_enabled" {
+  type        = bool
+  description = "Should the App Service Plan balance across availability zones? Requires a Premium or higher SKU (e.g. P1v3). Not supported on B1/S1."
+  default     = false
+}
+
 
 

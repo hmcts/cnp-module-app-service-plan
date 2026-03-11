@@ -13,6 +13,7 @@ Terraform module for creating an Azure App Service Plan (`azurerm_service_plan`)
 | `asp_sku_size` | string | No | `"B1"` | SKU name for the App Service Plan (e.g. `B1`, `S1`, `P1v3`) |
 | `asp_capacity` | number | No | `1` | Number of workers (instances) for the App Service Plan |
 | `app_service_environment_id` | string | No | `""` | Resource ID of an App Service Environment to host the plan in. Leave empty for a multi-tenant plan |
+| `zone_balancing_enabled` | bool | No | `false` | Balance the App Service Plan across availability zones. Requires a Premium or higher SKU (e.g. `P1v3`). Not supported on `B1`/`S1` |
 | `common_tags` | map(string) | No | `{}` | Common tags applied to all resources |
 | `tag_list` | map(string) | No | `{}` | Additional tags to be applied to each resource |
 
