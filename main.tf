@@ -12,6 +12,7 @@ resource "azurerm_service_plan" "app_service_plan" {
   os_type                    = var.os_type
   sku_name                   = var.asp_sku_size
   worker_count               = var.asp_capacity
+  zone_balancing_enabled     = var.zone_balancing_enabled
   app_service_environment_id = var.app_service_environment_id != "" ? var.app_service_environment_id : null
 
   tags = local.merged_tags
